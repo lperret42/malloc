@@ -24,17 +24,18 @@ int main()
 	printf("%s\n", ft_itoa(n_itoa));*/
 
 	//strsplit
-	char	*s_strspplit = "salut les";
+	char	*s_strspplit = "helloworld";
 	//char	*s_strspplit = "split this for me";
 	char	c_strsplit = ' ';
 	char	**test;
 	test = ft_strsplit(s_strspplit, c_strsplit);
-	printf("%s\n", test[0]);
-	printf("%s\n", test[1]);
-	printf("%s\n", test[2]);
-	printf("%s\n", test[3]);
-	//printf("%s\n", test[4]);
-
+	int n = 0;
+	int i = 0;
+	while (i <= n)
+	{
+		printf("%s\n", test[i]);
+		i++;
+	}
 
 
 	/*char	*s = "Bonjour";
@@ -118,4 +119,5 @@ int main()
 	printf("%s\n", dst_strlcat);
 	printf("%zu\n", ft_strlcat(dst2_strlcat, src_strlcat, size_strlcat));
 	printf("%s\n", dst2_strlcat);*/
+	return (0);
 }
