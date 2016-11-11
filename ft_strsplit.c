@@ -6,10 +6,11 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 16:08:42 by lperret           #+#    #+#             */
-/*   Updated: 2016/11/10 18:39:34 by lperret          ###   ########.fr       */
+/*   Updated: 2016/11/11 11:11:11 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
 
@@ -100,24 +101,34 @@ char			**ft_strsplit(char const *s, char c)
 	i = 0;
 	while (n < nb_word)
 	{
-		while (s[i])
-		{
+		//while (s[i])
+		//{
 			if (s[i] != c)
 			{
 				//printf("%d\n", n);
 				new[n] = ft_new_word(s, i, ft_size_word(s, i, c));
-				/*printf("%d\n", ft_size_word(s, i, c));
-				printf("%s\n", new[n]);*/
+				//printf("%d\n", ft_size_word(s, i, c));
+				printf("%s\n", new[n]);
+				printf("%p\n", new[n]);
 				i += ft_size_word(s, i, c);
 				n++;
+				//printf("%d\n", n);
 			}
 			else
 				while (s[i] && s[i] == c)
 					i++;
-		}
+		//}
+		printf("%p\n", new[0]);
 		//printf("%d\n", n);
 	}
 	//printf("%d\n", i);//ft_size_word(s, i, c));
-	new[n] = ft_new_word(s, i, ft_size_word(s, i, c));
+	//new[n] = ft_new_word(s, i, ft_size_word(s, i, c));
+	/*int k = 0;
+	while (k < n)
+	{
+		printf("%s\n", new[k]);
+		k++;
+	}*/
+	printf("%s\n", new[0]);
 	return (new);
 }
