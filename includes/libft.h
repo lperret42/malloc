@@ -96,5 +96,7 @@ typedef struct	s_file
 }				t_file;
 
 int				get_next_line(const int fd, char **line);
+void			ft_putnbr_base_fd(int n, int base, int fd);
+void			ft_putnbr_base(int n, int base);
 
 #endif
