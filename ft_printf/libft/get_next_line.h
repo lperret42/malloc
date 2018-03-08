@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lperret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/01 10:13:37 by lperret           #+#    #+#             */
-/*   Updated: 2016/12/11 15:54:49 by lperret          ###   ########.fr       */
+/*   Created: 2016/11/24 16:50:11 by lperret          #+#    #+#             */
+/*   Updated: 2016/12/12 15:45:52 by lperret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 1
+# define BUFF_SIZE 50000
 
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "libft.h"
 
 typedef struct		s_file
 {
 	int				fd;
-	int				pos;
-	int				nb_char_read;
-	int				finish;
-	char			*res;
+	char			*str;
 	struct s_file	*next;
 }					t_file;
 

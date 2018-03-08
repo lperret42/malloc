@@ -1,38 +1,59 @@
-NAME = libft.a
-CC = gcc
-FLAGS = -Wall -Werror -Wextra
-INCLUDES = ./includes/
-SRC_PATH = ./srcs/
-SRC = ft_memset.c     ft_bzero.c     ft_memcpy.c     ft_memccpy.c   ft_memmove.c  \
-	  ft_memchr.c     ft_memcmp.c    ft_strlen.c     ft_strdup.c    ft_strcpy.c   \
-	  ft_strncpy.c    ft_strcat.c    ft_strncat.c    ft_strlcat.c   ft_strchr.c   \
-	  ft_strrchr.c    ft_strstr.c    ft_strnstr.c    ft_strcmp.c    ft_strncmp.c  \
-	  ft_atoi.c       ft_isalpha.c   ft_isdigit.c    ft_isalnum.c   ft_isascii.c  \
-	  ft_isprint.c    ft_toupper.c   ft_tolower.c                                 \
-	  ft_memalloc.c   ft_memdel.c    ft_strnew.c     ft_strdel.c    ft_strclr.c   \
-	  ft_striter.c    ft_striteri.c  ft_strmap.c     ft_strmapi.c   ft_strequ.c   \
-	  ft_strnequ.c    ft_strsub.c    ft_strjoin.c    ft_strtrim.c   ft_strsplit.c \
-	  ft_itoa.c       ft_putchar.c   ft_putstr.c     ft_putendl.c   ft_putnbr.c   \
-	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c               \
-	  ft_lstnew.c     ft_lstdelone.c ft_lstdel.c     ft_lstadd.c    ft_lstiter.c  \
-	  ft_lstmap.c                                                                 \
-	  ft_suppr_char.c get_next_line.c ft_putnbr_base_fd.c   ft_putnbr_base.c      \
-	  ft_nb_digit_base.c
+ifeq ($(HOSTTYPE),)
+HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
-OBJ = $(SRC:.c=.o)
+NAME = libft_malloc_$(HOSTTYPE).so
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
+DEBUG = yes
+
+ifeq ($(DEBUG),yes)
+	FLAGS += -g
+endif
+
+TRASH = info .DS_Store $(NAME).dSYM
+
+SRC_PATH = ./src/
+INCLUDES_PATH = ./includes/
+OBJ_PATH = ./obj/
+
+LIBFT_PATH = ./ft_printf/
+LIBFT_H = -I$(LIBFT_PATH)/includes
+LIBFT_A = $(LIBFT_PATH)libftprintf.a
+LIBFT_LINK = -L$(LIBFT_PATH) -lftprintf
+
+
+SRC = main.c malloc.c
+
+OBJ	= $(addprefix $(OBJ_PATH),$(SRC:.c=.o))
 
 all: $(NAME)
 
-$(NAME):
-	gcc $(FLAGS) -I $(INCLUDES) -c $(addprefix $(SRC_PATH), $(SRC))
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
-	rm -f $(OBJ)
+$(NAME): obj $(LIBFT_A) $(OBJ)
+	@$(CC) $(FLAGS) -o $@ $(LIBFT_A) $(OBJ)
+	@echo "\033[32mLinking & indexing" [ $(NAME) ] "\033[0m"
+
+obj:
+	@mkdir $(OBJ_PATH)
+
+$(LIBFT_A):
+	@make -C $(LIBFT_PATH)
+
+$(OBJ_PATH)%.o:$(SRC_PATH)%.c
+	@$(CC) $(FLAGS) $(LIBFT_H) -I$(INCLUDES_PATH) -o $@ -c $<
+	@echo "\033[33mCompiling" [ $< ] "\033[0m"
 
 clean:
-	rm -f $(OBJ)
+	@rm -rf $(OBJ_PATH)
+	@rm -rf $(TRASH)
+	@make clean -C $(LIBFT_PATH)
+	@echo "\033[33mCleaning object files" [ $(NAME) ] "\033[0m"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -rf $(NAME)
+	@make fclean -C $(LIBFT_PATH)
+	@echo "\033[33mDelete" [ $(NAME) ]  "\033[0m"
 
 re: fclean all
+
+.PHONY: all clean fclean re
