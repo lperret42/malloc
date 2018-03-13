@@ -8,8 +8,10 @@
 
 # define PAGE_SIZE			getpagesize()
 # define NB_ALLOC_MIN		128
+
 # define TINY_LENGTH		2 * PAGE_SIZE
 # define TINY_ALLOC_MAX		TINY_LENGTH / NB_ALLOC_MIN
+
 # define SMALL_LENGTH		8 * TINY_LENGTH
 # define SMALL_ALLOC_MAX	SMALL_LENGTH / NB_ALLOC_MIN
 
