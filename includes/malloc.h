@@ -31,19 +31,18 @@ void			show_alloc_mem();
 void			**get_first_pages(void);
 void			*get_first_page(size_t size);
 
-size_t			get_page_len(size_t size);
+size_t			get_mem_len(size_t size);
 size_t			get_page_block_size(size_t size);
 t_page_type		get_page_type(size_t size);
 size_t			get_nb_block(size_t size);
-
-size_t			get_is_free_space_size(int nb_block);
 void			*get_page_mem_begin(void *page, t_page_type page_type);
 void			*get_alloc_page(size_t size);
-int				get_is_free_block(void *begin, int num_block);
-int				get_free_block_in_page(void *page);
-void			set_is_free_block(void *begin, int num_block, int is_free);
-void			*get_free_block(size_t size);
-
 void			add_page(size_t size);
+
+size_t			get_is_free_space_size(int nb_block);
+int				get_is_free_block(void *begin, int num_block);
+void			set_is_free_block(void *begin, int num_block, int is_free);
+int				search_num_free_block(void *begin, size_t nb_block);
+void			*get_free_block(size_t size);
 
 #endif

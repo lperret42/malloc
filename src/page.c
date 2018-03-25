@@ -26,7 +26,7 @@ void		*get_first_page(size_t size)
 	return get_first_pages()[page_type];
 }
 
-size_t		get_page_len(size_t size)
+size_t		get_mem_len(size_t size)
 {
 	t_page_type		page_type;
 
@@ -64,7 +64,7 @@ t_page_type		get_page_type(size_t size)
 
 void			*get_alloc_page(size_t size)
 {
-	size_t		page_len;
+	size_t		mem_len;
 	size_t		nb_block;
 	size_t		is_free_space_size;
 	size_t		alloc_size;
@@ -73,10 +73,10 @@ void			*get_alloc_page(size_t size)
 	t_page_type	page_type;
 
 	page_type = get_page_type(size);
-	page_len = get_page_len(size);
+	mem_len = get_mem_len(size);
 	nb_block = get_nb_block(size);
 	is_free_space_size = get_is_free_space_size(nb_block);
-	alloc_size = sizeof(void*) + is_free_space_size * sizeof(char) + page_len;
+	alloc_size = sizeof(void*) + is_free_space_size * sizeof(char) + mem_len;
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
 
