@@ -2,10 +2,8 @@
 
 void	*malloc(size_t size)
 {
-	void	*ret;
+	void			*ret;
 
-	ret = mmap(NULL, size, PROT_READ | PROT_WRITE,
-					MAP_ANON | MAP_PRIVATE, -1, 0);
-
+	ret = get_free_block(size);
 	return ret;
 }

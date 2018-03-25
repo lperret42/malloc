@@ -2,27 +2,31 @@
 
 int		main(void)
 {
-	int		i;
-	int		n;
-	char	*str;
+	size_t		i;
+	long int	n;
+	int			nb_times;
+	char		*str;
 
+	nb_times = 10000;
 	n = 42;
-	str = (char*)malloc(n + 1);
-	if (str == 0)
-		return -1;
-	i = 0;
-	while (i < n)
-		str[i++] = '*';
-	str[i] = '\0';
-	printf("%s\n", str);
+	while (nb_times > 0)
+	{
+		str = (char*)malloc(n + 1);
+		if (str == NULL)
+			return -1;
+		i = 0;
+		while (i < n)
+			str[i++] = '*';
+		str[i] = '\0';
+		nb_times--;
+	}
 	
-	printf("PAGE_SIZE: %d\n", PAGE_SIZE);
-	printf("NB_ALLOC_MIN: %d\n", NB_ALLOC_MIN);
-	printf("TINY_LENGTH: %d\n", TINY_LENGTH);
-	printf("TINY_ALLOC_MAX: %d\n", TINY_ALLOC_MAX);
-	printf("SMALL_LENGTH: %d\n", SMALL_LENGTH);
-	printf("SMALL_ALLOC_MAX: %d\n", SMALL_ALLOC_MAX);
-
+	printf("%s\n", str);
+	printf("NB_BLOCK: %d\n", NB_BLOCK);
+	printf("TINY_LEN: %d\n", TINY_LEN);
+	printf("TINY_BLOCK_SIZE: %lu\n", TINY_BLOCK_SIZE);
+	printf("SMALL_LEN: %d\n", SMALL_LEN);
+	printf("SMALL_BLOCK_SIZE: %lu\n", SMALL_BLOCK_SIZE);
 	printf("%s\n", str);
 	return (0);
 }
