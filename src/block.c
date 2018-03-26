@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 15:00:33 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/26 15:05:43 by lperret          ###   ########.fr       */
+/*   Updated: 2018/03/26 16:31:07 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ int				search_num_free_block(void *begin_is_free_space, size_t nb_block)
 
 void			*get_free_block(size_t size)
 {
-	size_t			nb_block;
 	size_t			block_size;
-	int				num_free_block;
-	void			*page;
 	t_page_type		page_type;
+	size_t			nb_block;
+	void			*page;
+	int				num_free_block;
 
-	nb_block = get_nb_block(size);
 	block_size = get_page_block_size(size);
 	page_type = get_page_type(size);
+	nb_block = page_type == LARGE ? 1 : NB_BLOCK;
 	page = get_first_page(size);
 	num_free_block = -1;
 	while (page != NULL)

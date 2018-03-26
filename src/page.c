@@ -39,6 +39,7 @@ void			*get_alloc_page(size_t size)
 	page_type = get_page_type(size);
 	mem_len = get_mem_len(size);
 	nb_block = get_nb_block(size);
+	//nb_block = page_type == LARGE ? 1 : NB_BLOCK;
 	is_free_space_size = get_is_free_space_size(nb_block);
 	alloc_size = sizeof(void*) + is_free_space_size * sizeof(char) + mem_len;
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,

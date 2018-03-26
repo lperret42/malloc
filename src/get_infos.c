@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 14:55:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/26 14:56:36 by lperret          ###   ########.fr       */
+/*   Updated: 2018/03/26 16:10:49 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t		get_page_block_size(size_t size)
 	else if (page_type == SMALL)
 		return SMALL_BLOCK_SIZE;
 	else
-		return 0;
+		return size;
 }
 
 t_page_type		get_page_type(size_t size)
@@ -58,7 +58,7 @@ void	*get_page_mem_begin(void *page, t_page_type page_type)
 	int			nb_block;
 	size_t		is_free_space_size;
 	
-	nb_block = get_nb_block(page_type);
+	nb_block = page_type == LARGE ? 1 : NB_BLOCK;
 	is_free_space_size = get_is_free_space_size(nb_block);
 
 	return (void*)((char*)page + sizeof(void*) + is_free_space_size);
