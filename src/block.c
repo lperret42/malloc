@@ -44,17 +44,6 @@ void		set_is_free_block(void *begin, int num_block, int is_free)
 		*c = *c & (~(1 << bit_num));
 }
 
-size_t			get_nb_block(size_t size)
-{
-	t_page_type		page_type;
-
-	page_type = get_page_type(size);
-	if (page_type == LARGE)
-		return 1;
-	else
-		return NB_BLOCK;
-}
-
 int				search_num_free_block(void *begin_is_free_space, size_t nb_block)
 {
 	size_t		num_block;
@@ -62,7 +51,7 @@ int				search_num_free_block(void *begin_is_free_space, size_t nb_block)
 	num_block = 0;
 	while (num_block < nb_block)
 	{
-		if (get_is_free_block(begin_is_free_space, num_block))
+		if (get_is_free_block(begin_is_free_space, num_block) == 1)
 			return num_block;
 		num_block++;
 	}
@@ -80,12 +69,12 @@ void			*get_free_block(size_t size)
 
 	block_size = get_page_block_size(size);
 	page_type = get_page_type(size);
-	nb_block = page_type == LARGE ? 1 : NB_BLOCK;
+	nb_block = (page_type == LARGE ? 1 : NB_BLOCK);
 	page = get_first_page(size);
 	num_free_block = -1;
 	while (page != NULL)
 	{
-		num_free_block = search_num_free_block((void*)((char*)page + sizeof(void*)), size);
+		num_free_block = search_num_free_block((void*)((char*)page + sizeof(void*)), nb_block);
 		if (num_free_block != -1)
 			break;
 		page = (void*)(*(unsigned long*)page);

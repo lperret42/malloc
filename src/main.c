@@ -7,7 +7,7 @@ int		main(void)
 	int			nb_times;
 	char		*str;
 
-	nb_times = 500;
+	nb_times = 100000;
 	n = 42;
 	while (nb_times > 0)
 	{
