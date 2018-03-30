@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 15:00:33 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/30 16:26:17 by lperret          ###   ########.fr       */
+/*   Updated: 2018/03/30 17:00:46 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void			*get_free_block(size_t size)
 		num_free_block = search_num_free_block((void*)((char*)page + sizeof(void*)), nb_block);
 		if (num_free_block != -1)
 			break;
-		page = (void*)(*(unsigned long*)page);   // need to add a safer way to get next page
+		//page = (void*)(*(unsigned long*)page);   // need to add a safer way to get next page
+		page = read_void_star_in_memory(page);   // need to add a safer way to get next page
 	}
 	if (num_free_block == -1)
 	{

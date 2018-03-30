@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   malloc.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/30 16:38:55 by lperret           #+#    #+#             */
+/*   Updated: 2018/03/30 16:54:19 by lperret          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MALLOC_H
 # define MALLOC_H
 
@@ -28,6 +40,8 @@ void			*malloc(size_t size);
 void			*realloc(void *ptr, size_t size);
 void			show_alloc_mem();
 
+void			*read_void_star_in_memory(void *mem);
+
 void			**get_first_pages(void);
 void			*get_first_page(size_t size);
 
@@ -35,7 +49,6 @@ size_t			get_mem_len(size_t size);
 size_t			get_page_block_size(size_t size);
 t_page_type		get_page_type(size_t size);
 size_t			get_nb_block(size_t size);
-//void			*get_page_mem_begin(void *page, t_page_type page_type);
 void			*get_page_mem_begin(void *page, size_t size);
 void			*get_alloc_page(size_t size);
 void			add_page(size_t size);

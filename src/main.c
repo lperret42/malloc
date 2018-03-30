@@ -8,7 +8,7 @@ int		main(void)
 	char		*str;
 
 	nb_times = 1000;
-	n = 42;
+	n = 5000;
 	while (nb_times > 0)
 	{
 		str = (char*)malloc(n + 1);

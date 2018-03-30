@@ -6,13 +6,13 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 14:55:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/30 16:25:26 by lperret          ###   ########.fr       */
+/*   Updated: 2018/03/30 16:53:37 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-size_t		get_mem_len(size_t size)
+size_t				get_mem_len(size_t size)
 {
 	t_page_type		page_type;
 
@@ -23,6 +23,23 @@ size_t		get_mem_len(size_t size)
 		return SMALL_LEN;
 	else
 		return size;
+}
+
+void				*read_void_star_in_memory(void *mem)
+{
+	int				nb_char;
+	unsigned char	*tmp_uc;
+	unsigned long	tmp_lu;
+
+	nb_char = sizeof(void*);
+	tmp_uc = (unsigned char*)mem;
+	tmp_lu = 0;
+	while (nb_char > 0)
+	{
+		tmp_lu += *(tmp_uc + nb_char);
+		nb_char--;
+	}
+	return ((void*)tmp_lu);
 }
 
 size_t		get_page_block_size(size_t size)
