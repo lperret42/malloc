@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   page.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/30 16:35:53 by lperret           #+#    #+#             */
+/*   Updated: 2018/03/30 16:37:20 by lperret          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 void			**get_first_pages(void)
 {
 	static void	*first_pages[3] = {NULL, NULL, NULL};
 
-	return first_pages;
+	return (first_pages);
 }
 
-void		*get_first_page(size_t size)
+void			*get_first_page(size_t size)
 {
 	t_page_type		page_type;
 
 	page_type = get_page_type(size);
-	return get_first_pages()[page_type];
+	return (get_first_pages()[page_type]);
 }
 
 void			*get_alloc_page(size_t size)
@@ -21,7 +33,7 @@ void			*get_alloc_page(size_t size)
 	size_t		nb_block;
 	size_t		is_free_space_size;
 	size_t		alloc_size;
-	void		*begin_is_free_space;;
+	void		*begin_is_free_space;
 	void		*alloc_page;
 	t_page_type	page_type;
 
@@ -37,13 +49,12 @@ void			*get_alloc_page(size_t size)
 		alloc_size = sizeof(void*) + 1 + size;
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
-
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
 	memset(begin_is_free_space, 255, is_free_space_size);
-	return alloc_page;
+	return (alloc_page);
 }
 
-void	add_page(size_t size)
+void			add_page(size_t size)
 {
 	t_page_type		page_type;
 	void			**first_pages;
