@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 14:55:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/26 16:10:49 by lperret          ###   ########.fr       */
+/*   Updated: 2018/03/30 16:02:19 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ size_t		get_is_free_space_size(int nb_block)
 	return (nb_block / 8) + (nb_block % 8 > 0 ? 1 : 0);
 }
 
-void	*get_page_mem_begin(void *page, t_page_type page_type)
+//void	*get_page_mem_begin(void *page, t_page_type page_type)
+void	*get_page_mem_begin(void *page, size_t size)
 {
-	int			nb_block;
-	size_t		is_free_space_size;
+	//int			nb_block;
+	size_t			nb_block;
+	size_t			is_free_space_size;
 	
-	nb_block = page_type == LARGE ? 1 : NB_BLOCK;
+	//nb_block = page_type == LARGE ? 1 : NB_BLOCK;
+	nb_block = get_nb_block(size);
 	is_free_space_size = get_is_free_space_size(nb_block);
 
 	return (void*)((char*)page + sizeof(void*) + is_free_space_size);

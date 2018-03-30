@@ -9,7 +9,8 @@
 
 # define NB_BLOCK			128
 
-# define TINY_LEN			2 * getpagesize()
+//# define TINY_LEN			2 * getpagesize()
+# define TINY_LEN			getpagesize()
 # define TINY_BLOCK_SIZE	(size_t)(TINY_LEN / NB_BLOCK)
 
 # define SMALL_LEN			8 * TINY_LEN
@@ -35,7 +36,8 @@ size_t			get_mem_len(size_t size);
 size_t			get_page_block_size(size_t size);
 t_page_type		get_page_type(size_t size);
 size_t			get_nb_block(size_t size);
-void			*get_page_mem_begin(void *page, t_page_type page_type);
+//void			*get_page_mem_begin(void *page, t_page_type page_type);
+void			*get_page_mem_begin(void *page, size_t size);
 void			*get_alloc_page(size_t size);
 void			add_page(size_t size);
 
