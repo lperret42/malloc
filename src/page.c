@@ -2,18 +2,7 @@
 
 void			**get_first_pages(void)
 {
-	int		i;
-
-	i = 0;
-	static void	**first_pages = NULL;
-
-	if (first_pages == NULL)
-	{
-		first_pages = mmap(NULL, sizeof(void*) * NB_PAGE_TYPE, PROT_READ | PROT_WRITE,
-						MAP_ANON | MAP_PRIVATE, -1, 0);
-		while (i < NB_PAGE_TYPE)
-			first_pages[i++] = NULL;
-	}
+	static void	*first_pages[3] = {NULL, NULL, NULL};
 
 	return first_pages;
 }
@@ -38,10 +27,8 @@ void			*get_alloc_page(size_t size)
 
 	page_type = get_page_type(size);
 	mem_len = get_mem_len(size);
-	//nb_block = (page_type == LARGE ? 1 : NB_BLOCK);
 	nb_block = get_nb_block(size);
 	is_free_space_size = get_is_free_space_size(nb_block);
-	//alloc_size = sizeof(void*) + is_free_space_size * sizeof(char) + mem_len;
 	if (size <= TINY_BLOCK_SIZE)
 		alloc_size = TINY_LEN;
 	else if (size <= SMALL_BLOCK_SIZE)
@@ -50,9 +37,6 @@ void			*get_alloc_page(size_t size)
 		alloc_size = sizeof(void*) + 1 + size;
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
-	printf("mmap return: %p\n", alloc_page);
-	printf("nb_block: %lu\n", nb_block);
-	printf("alloc_size: %lu\n", alloc_size);
 
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
 	memset(begin_is_free_space, 255, is_free_space_size);
