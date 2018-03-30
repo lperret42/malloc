@@ -7,12 +7,12 @@ int		main(void)
 	int			nb_times;
 	char		*str;
 
-	nb_times = 10000;
-	n = 42;
 	str = malloc(0);
 	str = malloc(42);
 	str = malloc(100);
 	str = malloc(40000);
+	nb_times = 10000;
+	n = 9000;
 	while (nb_times > 0)
 	{
 		str = (char*)malloc(n + 1);
