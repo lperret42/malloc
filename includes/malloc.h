@@ -21,7 +21,7 @@
 
 # define NB_BLOCK			128
 
-# define TINY_LEN			2 * getpagesize()
+# define TINY_LEN			getpagesize()
 # define TINY_BLOCK_SIZE	(size_t)(TINY_LEN / NB_BLOCK)
 
 # define SMALL_LEN			8 * TINY_LEN
