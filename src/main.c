@@ -7,11 +7,13 @@ int		main(void)
 	int			nb_times;
 	char		*str;
 
+	/*
 	str = malloc(0);
 	str = malloc(42);
 	str = malloc(100);
 	str = malloc(40000);
-	nb_times = 10000;
+	*/
+	nb_times = 260;
 	n = 31;
 	while (nb_times > 0)
 	{
@@ -19,10 +21,11 @@ int		main(void)
 		printf("nb_times: %d, str: %p\n", nb_times, str);
 		if (str == NULL)
 			return -1;
-		i = 0;
+		/*i = 0;
 		while (i < n)
 			str[i++] = '*';
 		str[i] = '\0';
+		*/
 		nb_times--;
 	}
 	

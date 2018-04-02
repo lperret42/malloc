@@ -65,7 +65,9 @@ int				search_num_free_block(void *begin_is_free_space, size_t nb_block_user)
 	while (num_block < nb_block_user)
 	{
 		if (get_is_free_block(begin_is_free_space, num_block) == 1)
+		{
 			return num_block;
+		}
 		num_block++;
 	}
 
@@ -78,7 +80,7 @@ void			*get_free_block(size_t size)
 	t_page_type		page_type;
 	size_t			nb_block_user;
 	void			*page;
-	int				num_free_block;
+	long			num_free_block;
 
 	block_size = get_page_block_size(size);
 	page_type = get_page_type(size);
@@ -103,5 +105,6 @@ void			*get_free_block(size_t size)
 		num_free_block = 0;
 	}
 	set_is_free_block((void*)((char*)page + sizeof(void*)), num_free_block, 0);
+	printf("num free block: %ld\n", num_free_block);
 	return (void*)((char*)get_page_mem_begin(page, size) + num_free_block * block_size);
 }

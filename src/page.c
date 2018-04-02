@@ -42,9 +42,10 @@ void			*get_alloc_page(size_t size)
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
+	printf("is_free_space_size: %lu\n", is_free_space_size);
 	memset(begin_is_free_space, 255, is_free_space_size);
 	printf("size before writing: %lu\n", size);
-	if (size >= SMALL_BLOCK_SIZE)
+	if (size > SMALL_BLOCK_SIZE)
 	{
 		*((unsigned long *)((char*)alloc_page + sizeof(void*))) = size;
 	}
