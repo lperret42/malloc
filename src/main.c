@@ -12,7 +12,7 @@ int		main(void)
 	str = malloc(100);
 	str = malloc(40000);
 	nb_times = 10000;
-	n = 9000;
+	n = 31;
 	while (nb_times > 0)
 	{
 		str = (char*)malloc(n + 1);
@@ -27,7 +27,8 @@ int		main(void)
 	}
 	
 	printf("%s\n", str);
-	printf("NB_BLOCK_TOTAL: %d\n", NB_BLOCK_TOTAL);
+	printf("NB_BLOCK_TINY_TOTAL: %d\n", NB_BLOCK_TINY_TOTAL);
+	printf("NB_BLOCK_SMALL_TOTAL: %d\n", NB_BLOCK_SMALL_TOTAL);
 	printf("TINY_LEN: %d\n", TINY_LEN);
 	printf("TINY_BLOCK_SIZE: %lu\n", TINY_BLOCK_SIZE);
 	printf("SMALL_LEN: %d\n", SMALL_LEN);

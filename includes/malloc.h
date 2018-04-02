@@ -19,13 +19,14 @@
 # include <stdlib.h>
 # include <sys/mman.h>
 
-# define NB_BLOCK_TOTAL			128
+# define NB_BLOCK_TINY_TOTAL			128
+# define NB_BLOCK_SMALL_TOTAL			128
 
 # define TINY_LEN				getpagesize()
-# define TINY_BLOCK_SIZE		(size_t)(TINY_LEN / NB_BLOCK_TOTAL)
+# define TINY_BLOCK_SIZE		(size_t)(TINY_LEN / NB_BLOCK_TINY_TOTAL)
 
-# define SMALL_LEN				8 * TINY_LEN
-# define SMALL_BLOCK_SIZE		(size_t)(SMALL_LEN / NB_BLOCK_TOTAL)
+# define SMALL_LEN				8 * getpagesize()
+# define SMALL_BLOCK_SIZE		(size_t)(SMALL_LEN / NB_BLOCK_SMALL_TOTAL)
 
 typedef enum		e_page_type
 {
@@ -45,10 +46,13 @@ void			*read_void_star_in_memory(void *mem);
 void			**get_first_pages(void);
 void			*get_first_page(size_t size);
 
-size_t			get_mem_len(size_t size);
+size_t			get_malloc_mem_size(size_t size);
+size_t			get_user_mem_size(size_t size);
+size_t			get_total_mem_size(size_t size);
+
 size_t			get_page_block_size(size_t size);
 t_page_type		get_page_type(size_t size);
-size_t			get_nb_block(size_t size);
+size_t			get_nb_block_user(size_t size);
 void			*get_page_mem_begin(void *page, size_t size);
 void			*get_alloc_page(size_t size);
 void			add_page(size_t size);

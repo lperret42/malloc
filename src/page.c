@@ -29,28 +29,25 @@ void			*get_first_page(size_t size)
 
 void			*get_alloc_page(size_t size)
 {
-	size_t		mem_len;
-	size_t		nb_block;
+	size_t		nb_block_user;
 	size_t		is_free_space_size;
 	size_t		alloc_size;
 	void		*begin_is_free_space;
 	void		*alloc_page;
-	t_page_type	page_type;
 
-	page_type = get_page_type(size);
-	mem_len = get_mem_len(size);
-	nb_block = get_nb_block(size);
-	is_free_space_size = get_is_free_space_size(nb_block);
-	if (size <= TINY_BLOCK_SIZE)
-		alloc_size = TINY_LEN;
-	else if (size <= SMALL_BLOCK_SIZE)
-		alloc_size = SMALL_LEN;
-	else
-		alloc_size = sizeof(void*) + sizeof(unsigned long) + size;
+	nb_block_user = get_nb_block_user(size);
+	is_free_space_size = get_is_free_space_size(nb_block_user);
+	alloc_size = get_total_mem_size(size);
+	printf("alloc_size: %lu\n", alloc_size);
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
 	memset(begin_is_free_space, 255, is_free_space_size);
+	printf("size before writing: %lu\n", size);
+	if (size >= SMALL_BLOCK_SIZE)
+	{
+		*((unsigned long *)((char*)alloc_page + sizeof(void*))) = size;
+	}
 	return (alloc_page);
 }
 
