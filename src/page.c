@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:35:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/30 16:58:48 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/02 12:59:48 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			*get_alloc_page(size_t size)
 	else if (size <= SMALL_BLOCK_SIZE)
 		alloc_size = SMALL_LEN;
 	else
-		alloc_size = sizeof(void*) + 1 + size;
+		alloc_size = sizeof(void*) + sizeof(unsigned long) + size;
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));

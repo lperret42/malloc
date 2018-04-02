@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:38:55 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/30 16:54:19 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:19:45 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 # include <stdlib.h>
 # include <sys/mman.h>
 
-# define NB_BLOCK			128
+# define NB_BLOCK_TOTAL			128
 
-# define TINY_LEN			getpagesize()
-# define TINY_BLOCK_SIZE	(size_t)(TINY_LEN / NB_BLOCK)
+# define TINY_LEN				getpagesize()
+# define TINY_BLOCK_SIZE		(size_t)(TINY_LEN / NB_BLOCK_TOTAL)
 
-# define SMALL_LEN			8 * TINY_LEN
-# define SMALL_BLOCK_SIZE	(size_t)(SMALL_LEN / NB_BLOCK)
+# define SMALL_LEN				8 * TINY_LEN
+# define SMALL_BLOCK_SIZE		(size_t)(SMALL_LEN / NB_BLOCK_TOTAL)
 
 typedef enum		e_page_type
 {

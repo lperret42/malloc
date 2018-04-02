@@ -27,7 +27,7 @@ int		main(void)
 	}
 	
 	printf("%s\n", str);
-	printf("NB_BLOCK: %d\n", NB_BLOCK);
+	printf("NB_BLOCK_TOTAL: %d\n", NB_BLOCK_TOTAL);
 	printf("TINY_LEN: %d\n", TINY_LEN);
 	printf("TINY_BLOCK_SIZE: %lu\n", TINY_BLOCK_SIZE);
 	printf("SMALL_LEN: %d\n", SMALL_LEN);

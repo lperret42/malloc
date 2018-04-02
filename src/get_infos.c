@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 14:55:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/30 16:53:37 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/02 13:25:54 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ t_page_type		get_page_type(size_t size)
 size_t		get_is_free_space_size(int nb_block)
 {
 	return (nb_block / 8) + (nb_block % 8 > 0 ? 1 : 0);
+}
+
+size_t		get_malloc_size(size_t size)
+{
+	size_t			nb_block;
+	size_t			is_free_space_size;
+	
+	nb_block = get_nb_block(size);
+	is_free_space_size = get_is_free_space_size(nb_block);
+	if (size <= SMALL)
+		return (sizeof(void*) + is_free_space_size);
+	else
+		return (sizeof(void*) + sizeof(unsigned long));
 }
 
 void	*get_page_mem_begin(void *page, size_t size)
