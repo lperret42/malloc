@@ -35,10 +35,16 @@ size_t				get_malloc_mem_size(size_t size)
 	nb_block_user = get_nb_block_user(size);
 	printf("nb_block_user: %lu\n", nb_block_user);
 	is_free_space_size = get_is_free_space_size(nb_block_user);
-	if (size <= SMALL)
+	if (size <= SMALL_BLOCK_SIZE)
+	{
+		printf("hello get_malloc_mem_size: %lu\n", (sizeof(void*) + is_free_space_size));
 		return (sizeof(void*) + is_free_space_size);
+	}
 	else
+	{
+		printf("get_malloc_mem_size: %lu\n", (sizeof(void*) + sizeof(unsigned long)));
 		return (sizeof(void*) + sizeof(unsigned long));
+	}
 }
 
 size_t				get_total_mem_size(size_t size)
