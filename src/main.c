@@ -2,6 +2,8 @@
 //#include <stdlib.h>
 //#include <stdio.h>
 
+// TODO print error message, norm, add realloc and show_alloc_mem and exaustive tests
+
 int		main(void)
 {
 	size_t		i;
