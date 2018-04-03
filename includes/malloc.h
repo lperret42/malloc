@@ -19,10 +19,10 @@
 # include <stdlib.h>
 # include <sys/mman.h>
 
-# define NB_BLOCK_TINY_TOTAL			128
+# define NB_BLOCK_TINY_TOTAL			256
 # define NB_BLOCK_SMALL_TOTAL			128
 
-# define TINY_LEN				getpagesize()
+# define TINY_LEN				2 * getpagesize()
 # define TINY_BLOCK_SIZE		(size_t)(TINY_LEN / NB_BLOCK_TINY_TOTAL)
 
 # define SMALL_LEN				8 * getpagesize()
@@ -55,6 +55,7 @@ t_page_type		get_page_type(size_t size);
 size_t			get_nb_block_user(size_t size);
 void			*get_page_mem_begin(void *page, size_t size);
 void			*get_alloc_page(size_t size);
+void			del_page(void *page, t_page_type page_type);
 void			add_page(size_t size);
 
 size_t			get_is_free_space_size(int nb_block);

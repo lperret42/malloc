@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-size_t		get_nb_block_user(size_t size)
+size_t	get_nb_block_user(size_t size)
 {
 	t_page_type		page_type;
 
@@ -41,7 +41,7 @@ int		get_is_free_block(void *begin, int num_block)
 	return is_free;
 }
 
-void		set_is_free_block(void *begin, int num_block, int is_free)
+void	set_is_free_block(void *begin, int num_block, int is_free)
 {
 	int		octet_num;
 	int		bit_num;
@@ -57,7 +57,7 @@ void		set_is_free_block(void *begin, int num_block, int is_free)
 		*c = *c & (~(1 << bit_num));
 }
 
-int				search_num_free_block(void *begin_is_free_space, size_t nb_block_user)
+int		search_num_free_block(void *begin_is_free_space, size_t nb_block_user)
 {
 	size_t		num_block;
 
@@ -74,16 +74,14 @@ int				search_num_free_block(void *begin_is_free_space, size_t nb_block_user)
 	return -1;
 }
 
-void			*get_free_block(size_t size)
+void	*get_free_block(size_t size)
 {
 	size_t			block_size;
-	t_page_type		page_type;
 	size_t			nb_block_user;
 	void			*page;
 	long			num_free_block;
 
 	block_size = get_page_block_size(size);
-	page_type = get_page_type(size);
 	nb_block_user = get_nb_block_user(size);
 	page = get_first_page(size);
 	num_free_block = -1;
@@ -92,7 +90,7 @@ void			*get_free_block(size_t size)
 		num_free_block = search_num_free_block((void*)((char*)page + sizeof(void*)), nb_block_user);
 		if (num_free_block != -1)
 			break;
-		page = read_void_star_in_memory(page);   // need to add a safer way to get next page
+		page = read_void_star_in_memory(page);
 	}
 	if (num_free_block == -1)
 	{
@@ -100,11 +98,10 @@ void			*get_free_block(size_t size)
 		page = get_first_page(size);
 		if (page == NULL)    // mmap failed
 			return NULL;
-		if (page_type == LARGE)
+		if (size > SMALL_BLOCK_SIZE)
 			return (get_page_mem_begin(page, size));
 		num_free_block = 0;
 	}
 	set_is_free_block((void*)((char*)page + sizeof(void*)), num_free_block, 0);
-	printf("num free block: %ld\n", num_free_block);
 	return (void*)((char*)get_page_mem_begin(page, size) + num_free_block * block_size);
 }

@@ -42,14 +42,45 @@ void			*get_alloc_page(size_t size)
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
-	printf("is_free_space_size: %lu\n", is_free_space_size);
 	memset(begin_is_free_space, 255, is_free_space_size);
-	printf("size before writing: %lu\n", size);
 	if (size > SMALL_BLOCK_SIZE)
 	{
 		*((unsigned long *)((char*)alloc_page + sizeof(void*))) = size;
 	}
 	return (alloc_page);
+}
+
+void		del_page(void *page, t_page_type page_type)
+{
+	void	**first_pages;
+	void	*prev;
+	void	*next_page;
+	size_t	page_size;
+
+	first_pages = get_first_pages();
+	next_page = read_void_star_in_memory(page);
+	if (page == first_pages[page_type])
+		first_pages[page_type] = next_page;
+	else
+	{
+		prev = first_pages[page_type];
+		next_page = read_void_star_in_memory(prev);
+		while (next_page != page)
+		{
+			prev = next_page;
+			next_page = read_void_star_in_memory(prev);
+		}
+		next_page = read_void_star_in_memory(page);
+		memcpy(prev, next_page, sizeof(void*));
+	}
+	if (page_type == TINY)
+		page_size = TINY_LEN;
+	else if (page_type == SMALL)
+		page_size = SMALL_LEN;
+	else
+		page_size = *((unsigned long *)((char*)page + sizeof(void*)));
+	munmap(page, page_size);
+	printf("del page\n");
 }
 
 void			add_page(size_t size)
