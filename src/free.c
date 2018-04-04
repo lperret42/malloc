@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/04 13:01:23 by lperret           #+#    #+#             */
+/*   Updated: 2018/04/04 14:09:15 by lperret          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 int		check_is_free_page(void *page, t_page_type page_type)
@@ -6,7 +18,6 @@ int		check_is_free_page(void *page, t_page_type page_type)
 	size_t		num_char;
 	size_t		nb_block_user;
 	size_t		is_free_space_size;
-
 	void		*begin_is_free_space;
 
 	if (page_type == TINY)
@@ -20,13 +31,14 @@ int		check_is_free_page(void *page, t_page_type page_type)
 	while (num_char < is_free_space_size)
 	{
 		if (*(unsigned char *)(begin_is_free_space + num_char) != 255)
-			return 0;
+			return (0);
 		num_char++;
 	}
-	return 1;
+	return (1);
 }
 
-size_t		get_num_block_of_ptr_in_page(void *page, t_page_type page_type, void *ptr)
+long	get_num_block_of_ptr_in_page(void *page, t_page_type page_type,
+																void *ptr)
 {
 	size_t		block_size;
 	void		*page_mem_begin;
@@ -43,13 +55,13 @@ size_t		get_num_block_of_ptr_in_page(void *page, t_page_type page_type, void *pt
 	while (num_block < nb_block_user)
 	{
 		if (page_mem_begin + block_size * num_block == ptr)
-			return num_block;
+			return (num_block);
 		num_block++;
 	}
 	return (-1);
 }
 
-int		search_and_free_ptr_in_larges(void *ptr, t_page_type page_type)
+int		search_and_free_ptr_in_larges(void *ptr)
 {
 	void			*page;
 
@@ -58,7 +70,7 @@ int		search_and_free_ptr_in_larges(void *ptr, t_page_type page_type)
 	{
 		if (page + sizeof(void*) + sizeof(unsigned long) == ptr)
 		{
-			del_page(page, page_type);
+			del_page(page, LARGE);
 			return (1);
 		}
 		page = read_void_star_in_memory(page);
@@ -79,7 +91,7 @@ int		search_and_free_ptr_in_not_larges(void *ptr, t_page_type page_type)
 	{
 		num_block_of_ptr = get_num_block_of_ptr_in_page(page, page_type, ptr);
 		if (num_block_of_ptr != -1)
-			break;
+			break ;
 		page = read_void_star_in_memory(page);
 	}
 	if (num_block_of_ptr != -1)
@@ -96,12 +108,11 @@ int		search_and_free_ptr_in_not_larges(void *ptr, t_page_type page_type)
 
 void	free(void *ptr)
 {
-	if (ptr == NULL)
+	if (!ptr)
 		return ;
-
 	printf("free\n");
 	if (search_and_free_ptr_in_not_larges(ptr, TINY) == 0)
 		if (search_and_free_ptr_in_not_larges(ptr, SMALL) == 0)
-			if (search_and_free_ptr_in_larges(ptr, LARGE) == 0)
+			if (search_and_free_ptr_in_larges(ptr) == 0)
 				printf("error: was not allocated\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:35:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/02 12:59:48 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/04 15:10:08 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ void			*get_alloc_page(size_t size)
 	printf("alloc_size: %lu\n", alloc_size);
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
+	printf("hello1\n");
+	if (alloc_page == MAP_FAILED)
+		return NULL;
+	printf("hello2\n");
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
 	memset(begin_is_free_space, 255, is_free_space_size);
 	if (size > SMALL_BLOCK_SIZE)
-	{
-		*((unsigned long *)((char*)alloc_page + sizeof(void*))) = size;
-	}
+		*((unsigned long *)((char*)alloc_page + sizeof(void*))) =\
+												get_total_mem_size(size);
 	return (alloc_page);
 }
 
-void		del_page(void *page, t_page_type page_type)
+void			del_page(void *page, t_page_type page_type)
 {
 	void	**first_pages;
 	void	*prev;
@@ -73,17 +76,12 @@ void		del_page(void *page, t_page_type page_type)
 		next_page = read_void_star_in_memory(page);
 		memcpy(prev, next_page, sizeof(void*));
 	}
-	if (page_type == TINY)
-		page_size = TINY_LEN;
-	else if (page_type == SMALL)
-		page_size = SMALL_LEN;
-	else
-		page_size = *((unsigned long *)((char*)page + sizeof(void*)));
+	page_size = get_page_size_from_type(page, page_type);
 	munmap(page, page_size);
-	printf("del page\n");
+	//printf("del page\n");
 }
 
-void			add_page(size_t size)
+int				add_page(size_t size)
 {
 	t_page_type		page_type;
 	void			**first_pages;
@@ -94,10 +92,13 @@ void			add_page(size_t size)
 	first_pages = get_first_pages();
 	tmp = first_pages[page_type];
 	new_page = get_alloc_page(size);
+	if (!new_page)
+		return (0);
 	if (tmp == NULL)
 		memset(new_page, 0, sizeof(void*));
 	else
 		memcpy(new_page, tmp, sizeof(void*));
 	first_pages[page_type] = new_page;
 	printf("page++\n");
+	return (1);
 }

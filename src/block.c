@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 15:00:33 by lperret           #+#    #+#             */
-/*   Updated: 2018/03/30 17:00:46 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/04 16:43:30 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ int		get_is_free_block(void *begin, int num_block)
 
 	octet_num = num_block / 8;
 	bit_num = num_block % 8;
-
 	c = *((char*)begin + octet_num);
 	is_free = (c >> bit_num) & 1;
-
-	return is_free;
+	return (is_free);
 }
 
 void	set_is_free_block(void *begin, int num_block, int is_free)
@@ -49,7 +47,6 @@ void	set_is_free_block(void *begin, int num_block, int is_free)
 
 	octet_num = num_block / 8;
 	bit_num = num_block % 8;
-
 	c = (char*)begin + octet_num;
 	if (is_free == 1)
 		*c = *c | (1 << bit_num);
@@ -66,42 +63,38 @@ int		search_num_free_block(void *begin_is_free_space, size_t nb_block_user)
 	{
 		if (get_is_free_block(begin_is_free_space, num_block) == 1)
 		{
-			return num_block;
+			return (num_block);
 		}
 		num_block++;
 	}
-
-	return -1;
+	return (-1);
 }
 
 void	*get_free_block(size_t size)
 {
-	size_t			block_size;
-	size_t			nb_block_user;
-	void			*page;
-	long			num_free_block;
+	void			*p;
+	long			num_free;
 
-	block_size = get_page_block_size(size);
-	nb_block_user = get_nb_block_user(size);
-	page = get_first_page(size);
-	num_free_block = -1;
-	while (page != NULL)
+	p = get_first_page(size);
+	num_free = -1;
+	while (p != NULL)
 	{
-		num_free_block = search_num_free_block((void*)((char*)page + sizeof(void*)), nb_block_user);
-		if (num_free_block != -1)
-			break;
-		page = read_void_star_in_memory(page);
+		num_free = search_num_free_block(p + sizeof(void*),
+													get_nb_block_user(size));
+		if (num_free != -1)
+			break ;
+		p = read_void_star_in_memory(p);
 	}
-	if (num_free_block == -1)
+	if (num_free == -1)
 	{
-		add_page(size);
-		page = get_first_page(size);
-		if (page == NULL)    // mmap failed
-			return NULL;
+		if (add_page(size) != 1)
+			return (NULL);
+		if ((p = get_first_page(size)) == NULL)
+			return (NULL);
 		if (size > SMALL_BLOCK_SIZE)
-			return (get_page_mem_begin(page, size));
-		num_free_block = 0;
+			return (get_page_mem_begin(p, size));
+		num_free = 0;
 	}
-	set_is_free_block((void*)((char*)page + sizeof(void*)), num_free_block, 0);
-	return (void*)((char*)get_page_mem_begin(page, size) + num_free_block * block_size);
+	set_is_free_block(p + sizeof(void*), num_free, 0);
+	return (get_page_mem_begin(p, size) + num_free * get_page_block_size(size));
 }
