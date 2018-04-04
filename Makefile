@@ -11,7 +11,8 @@ SRC_PATH = ./src/
 INCLUDES_PATH = ./includes/
 OBJ_PATH = ./obj/
 
-SRC = malloc.c free.c realloc.c page.c block.c get_infos.c get_infos_2.c
+SRC = malloc.c free.c realloc.c show_alloc_mem.c\
+	  page.c block.c get_infos.c get_infos_2.c
 
 OBJ	= $(addprefix $(OBJ_PATH),$(SRC:.c=.o))
 

@@ -12,6 +12,8 @@
 
 #include "malloc.h"
 
+// TODO: maybe change get_nb_block_user
+
 void	*malloc(size_t size)
 {
 	void			*ret;

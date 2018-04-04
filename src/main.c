@@ -10,14 +10,19 @@ int		main(void)
 	char		*str;
 	char		*str2;
 
-	str = malloc(10e5);
+	show_alloc_mem();
+	str = malloc(0);
+	printf("str: %p\n", str);
+	show_alloc_mem();
+	str = realloc(str, 8);
+	show_alloc_mem();
 	printf("str: %p\n", str);
 	//return 0;
-	str = realloc(str, 10e5);
-	printf("str: %p\n", str);
 	str = malloc(50);
+	show_alloc_mem();
 	printf("str: %p\n", str);
 	str = realloc(str, 10);
+	show_alloc_mem();
 	printf("str: %p\n", str);
 	//return 0;
 	str = malloc(0);
@@ -27,9 +32,11 @@ int		main(void)
 	str = malloc(42);
 	str = malloc(100);
 	str = malloc(40000);
-	nb_times = 50000;
-	n = 10e0;
+	show_alloc_mem();
+	nb_times = 5000;
+	n = 10;
 	str = NULL;
+	//return 0;
 	while (nb_times > 0)
 	{
 		//free(str);
@@ -40,10 +47,11 @@ int		main(void)
 		if (str == NULL)
 			return -1;
 		i = 0;
-		while (i < n)
+		while (i < n && i > 0)
 			str[i++] = '*';
 		str[i] = '\0';
 		nb_times--;
+		show_alloc_mem();
 	}
 
 	printf("%s\n", str);

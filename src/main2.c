@@ -12,9 +12,10 @@ int		main(void)
 	char		*str;
 	char		*str2;
 
-	str = malloc(10e8);
+	str = malloc(1);
+	str[10000000] = 42;
 	printf("str: %p\n", str);
-	str = realloc(str, 20);
+	str = realloc(str, 14);
 	printf("str: %p\n", str);
 	return 0;
 	//str[0] = 55;

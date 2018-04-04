@@ -32,7 +32,8 @@ void			*read_void_star_in_memory(void *mem)
 	tmp_uc = (unsigned char*)mem;
 	tmp_lu = 0;
 	while (--nb_char >= 0)
-		tmp_lu += *(tmp_uc + nb_char);
+		tmp_lu += *(tmp_uc + nb_char) * (nb_char + 1);
+	printf("tmp_lu: %lu\n", tmp_lu);
 	return ((void*)tmp_lu);
 }
 
