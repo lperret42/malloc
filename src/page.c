@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:35:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/04 15:10:08 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/04 17:38:21 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			*get_alloc_page(size_t size)
 						MAP_ANON | MAP_PRIVATE, -1, 0);
 	printf("hello1\n");
 	if (alloc_page == MAP_FAILED)
-		return NULL;
+		return (NULL);
 	printf("hello2\n");
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
 	memset(begin_is_free_space, 255, is_free_space_size);
@@ -78,7 +78,6 @@ void			del_page(void *page, t_page_type page_type)
 	}
 	page_size = get_page_size_from_type(page, page_type);
 	munmap(page, page_size);
-	//printf("del page\n");
 }
 
 int				add_page(size_t size)
