@@ -1,6 +1,7 @@
 #include "malloc.h"
 
 // TODO print error message, norm, add realloc and show_alloc_mem and exaustive tests
+// sort pages by adress for each TINY, SMALL, and LARGE
 
 int		main(void)
 {
@@ -15,7 +16,7 @@ int		main(void)
 	str = malloc(100);
 	str = malloc(40000);
 	show_alloc_mem();
-	nb_times = 130;
+	nb_times = 1000;
 	n = 4200;
 	str = NULL;
 	while (nb_times > 0)
