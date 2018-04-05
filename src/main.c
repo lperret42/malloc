@@ -15,13 +15,16 @@ int		main(void)
 	str = malloc(10);
 	str = malloc(100);
 	str = malloc(40000);
+	str = malloc(40000);
 	show_alloc_mem();
-	nb_times = 1000;
-	n = 4200;
+	nb_times = 254;
+	n = 42;
 	str = NULL;
+	show_alloc_mem();
+	//return 0;
 	while (nb_times > 0)
 	{
-		//free(str);
+		free(str);
 		str = (char*)malloc(n + 1);
 		//str = (char*)realloc(str, n + 1);
 		//printf("str: %p\n", str);
