@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:35:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/04 17:38:21 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/05 14:34:09 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ void			*get_alloc_page(size_t size)
 	nb_block_user = get_nb_block_user(size);
 	is_free_space_size = get_is_free_space_size(nb_block_user);
 	alloc_size = get_total_mem_size(size);
-	printf("alloc_size: %lu\n", alloc_size);
+	//printf("alloc_size: %lu\n", alloc_size);
 	alloc_page = (void*)mmap(NULL, alloc_size, PROT_READ | PROT_WRITE,
 						MAP_ANON | MAP_PRIVATE, -1, 0);
-	printf("hello1\n");
 	if (alloc_page == MAP_FAILED)
 		return (NULL);
-	printf("hello2\n");
 	begin_is_free_space = (void*)((char*)alloc_page + sizeof(void*));
 	memset(begin_is_free_space, 255, is_free_space_size);
 	if (size > SMALL_BLOCK_SIZE)
@@ -78,6 +76,7 @@ void			del_page(void *page, t_page_type page_type)
 	}
 	page_size = get_page_size_from_type(page, page_type);
 	munmap(page, page_size);
+	printf("page deleted\n");
 }
 
 int				add_page(size_t size)
@@ -93,11 +92,8 @@ int				add_page(size_t size)
 	new_page = get_alloc_page(size);
 	if (!new_page)
 		return (0);
-	if (tmp == NULL)
-		memset(new_page, 0, sizeof(void*));
-	else
-		memcpy(new_page, tmp, sizeof(void*));
+	memcpy(new_page, &tmp, sizeof(void*));
 	first_pages[page_type] = new_page;
-	printf("page++\n");
+	//printf("page++\n");
 	return (1);
 }

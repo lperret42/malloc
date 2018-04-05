@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 13:01:23 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/04 14:09:15 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/05 14:32:39 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	free(void *ptr)
 {
 	if (!ptr)
 		return ;
-	printf("free\n");
 	if (search_and_free_ptr_in_not_larges(ptr, TINY) == 0)
 		if (search_and_free_ptr_in_not_larges(ptr, SMALL) == 0)
 			if (search_and_free_ptr_in_larges(ptr) == 0)
