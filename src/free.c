@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 13:01:23 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/05 14:32:39 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/06 15:31:24 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ int		search_and_free_ptr_in_not_larges(void *ptr, t_page_type page_type)
 		if (!(get_is_free_block(page + sizeof(void*), num_block_of_ptr) == 0))
 			return (0);
 		set_is_free_block(page + sizeof(void*), num_block_of_ptr, 1);
-		if (check_is_free_page(page, page_type) == 1)
-			del_page(page, page_type);
 		return (1);
 	}
 	return (0);
@@ -112,6 +110,5 @@ void	free(void *ptr)
 		return ;
 	if (search_and_free_ptr_in_not_larges(ptr, TINY) == 0)
 		if (search_and_free_ptr_in_not_larges(ptr, SMALL) == 0)
-			if (search_and_free_ptr_in_larges(ptr) == 0)
-				printf("error: was not allocated\n");
+			search_and_free_ptr_in_larges(ptr);
 }

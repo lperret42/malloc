@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:38:55 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/04 15:09:33 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/06 15:11:32 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 # include <string.h>
 # include <stdlib.h>
 # include <sys/mman.h>
+# include "../libft/includes/ft_printf.h"
 
 # define NB_BLOCK_TINY_TOTAL			256
 # define NB_BLOCK_SMALL_TOTAL			128
 
 # define PAGESIZE				getpagesize()
+
 # define TINY_LEN				2 * PAGESIZE
 # define TINY_BLOCK_SIZE		(size_t)(TINY_LEN / NB_BLOCK_TINY_TOTAL)
 
-# define SMALL_LEN				16 * PAGESIZE
+# define SMALL_LEN				32 * PAGESIZE
 # define SMALL_BLOCK_SIZE		(size_t)(SMALL_LEN / NB_BLOCK_SMALL_TOTAL)
 
 typedef enum		e_page_type
@@ -40,7 +42,7 @@ typedef enum		e_page_type
 void			free(void *ptr);
 void			*malloc(size_t size);
 void			*realloc(void *ptr, size_t size);
-void			show_alloc_mem();
+void			show_alloc_mem(void);
 
 void			*read_void_star_in_memory(void *mem);
 
@@ -68,5 +70,9 @@ void			*get_free_block(size_t size);
 
 long			get_num_block_of_ptr_in_page(void *page, t_page_type page_type,
 				void *ptr);
+
+void			show_alloc_mem_between_two_addr(void *begin, void *end);
+size_t			get_nb_page(void *page);
+void			sort_pages(void **pages, size_t nb_page);
 
 #endif

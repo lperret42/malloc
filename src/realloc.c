@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 13:53:45 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/04 16:36:19 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/06 14:56:38 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*realloc_not_large(void *ptr, size_t size, t_page_type old_page_type)
 		ret = malloc(size);
 		if (!ret)
 			return (NULL);
-		memcpy(ret, ptr, size);
+		ft_memcpy(ret, ptr, size);
 		free(ptr);
 		return (ret);
 	}
@@ -81,7 +81,9 @@ void	*realloc_large(void *ptr, size_t size)
 		ret = malloc(size);
 		if (!ret)
 			return (NULL);
-		memcpy(ret, ptr, size);
+		if (size >= old_size - (sizeof(void*) + sizeof(unsigned long)))
+			size = old_size - (sizeof(void*) + sizeof(unsigned long));
+		ft_memcpy(ret, ptr, size);
 		free(ptr);
 		return (ret);
 	}

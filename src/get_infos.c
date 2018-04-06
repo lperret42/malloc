@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 14:55:53 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/05 13:13:37 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/06 15:14:21 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void			*read_void_star_in_memory(void *mem)
 	unsigned long	tmp_lu;
 	size_t			power;
 
-	//printf("jambon1: %p\n", (void*)*(unsigned long*)mem);
 	nb_char = sizeof(void*);
 	tmp_uc = (unsigned char*)mem;
 	tmp_lu = 0;
@@ -42,7 +41,6 @@ void			*read_void_star_in_memory(void *mem)
 		power *= 256;
 		n++;
 	}
-	//printf("tmp_lu: %p\n", (void*)tmp_lu);
 	return ((void*)tmp_lu);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:08:09 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/04 14:08:11 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/06 13:31:05 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ size_t			get_user_mem_size(size_t size)
 {
 	size_t			malloc_size;
 
+	ft_putstr("size: ");
+	ft_putnbr(size);
+	ft_putstr("\n");
 	malloc_size = get_malloc_mem_size(size);
 	if (size <= TINY_BLOCK_SIZE)
 		return (TINY_LEN - malloc_size);
@@ -40,7 +43,12 @@ size_t			get_malloc_mem_size(size_t size)
 
 size_t			get_total_mem_size(size_t size)
 {
-	return (get_malloc_mem_size(size) + get_user_mem_size(size));
+	if (size <= TINY_BLOCK_SIZE)
+		return (TINY_LEN);
+	else if (size <= SMALL_BLOCK_SIZE)
+		return (SMALL_LEN);
+	else
+		return (size + sizeof(void*) + sizeof(unsigned long));
 }
 
 size_t			get_page_size_from_type(void *page, t_page_type page_type)
