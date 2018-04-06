@@ -8,11 +8,11 @@ int		main(void)
 	char		*str;
 
 	str = malloc(10);
-	str = malloc(100);
+	str = malloc(500);
 	str = malloc(40000);
 	str = malloc(40000);
-	nb_times = 254;
-	n = 4200;
+	nb_times = 50000;
+	n = 30;
 	str = NULL;
 	while (nb_times > 0)
 	{
@@ -27,7 +27,7 @@ int		main(void)
 		nb_times--;
 	}
 
-	show_alloc_mem();
+	//show_alloc_mem();
 
 	ft_printf("%s\n", str);
 

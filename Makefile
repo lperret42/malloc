@@ -66,4 +66,3 @@ fclean: clean
 	@echo "\033[33mDelete" [ $(NAME) ]  "\033[0m"
 
 re: fclean all
-	make re -C $(LIBFT_PATH)
