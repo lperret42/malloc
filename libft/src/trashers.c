@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
 char	*ft_wild_format(char *cpy, t_print *elem)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
 static char		*ft_set_cutf(int byte, wchar_t utf, char *str, t_print *elem)
 {

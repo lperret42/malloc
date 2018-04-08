@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "libft.h"
 
 char	*ft_conv_percent(char *str, t_print *elem, va_list ap)
 {

@@ -14,11 +14,11 @@
 # define MALLOC_H
 
 # include <unistd.h>
-# include <stdio.h>
+//# include <stdio.h>
 # include <string.h>
-# include <stdlib.h>
+//# include <stdlib.h>
 # include <sys/mman.h>
-# include "../libft/includes/ft_printf.h"
+# include "../libft/includes/libft.h"
 
 # define NB_BLOCK_TINY_TOTAL			256
 # define NB_BLOCK_SMALL_TOTAL			128

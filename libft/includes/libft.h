@@ -20,6 +20,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# include <stdarg.h>
+# include <wchar.h>
+
 # define BUFF_SIZE 6
 # define RESET  "\x1B[0m"
 # define BLA  	"\x1B[30m"
@@ -38,12 +41,32 @@ typedef struct		s_fd
 	char			*save;
 	struct s_fd		*next;
 }					t_fd;
+
 typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_print
+{
+	int				hashtag;
+	int				zero;
+	int				minus;
+	int				plus;
+	int				space;
+	int				width;
+	int				precision;
+	int				type;
+	int				neg;
+	int				len;
+	int				next;
+	intmax_t		putf;
+	int				boolutf;
+	char			char_conv;
+}					t_print;
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -108,4 +131,55 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_putgrid(char **grid);
 void				print_memory(const void *addr, size_t size);
 int					get_next_line(const int fd, char **line);
+
+int					ft_printf(const char *format, ...);
+
+char				*ft_conv_cutf(wchar_t utf, t_print *elem);
+char				*ft_conv_sutf(va_list ap, t_print *elem);
+
+char				*ft_conv_c(char *str, t_print *elem, va_list ap);
+char				*ft_conv_s(char *str, t_print *elem, va_list ap);
+char				*ft_conv_d(char *str, t_print *elem, va_list ap);
+char				*ft_conv_u(char *str, t_print *elem, va_list ap);
+char				*ft_conv_o(char *str, t_print *elem, va_list ap);
+char				*ft_conv_x(char *str, t_print *elem, va_list ap);
+char				*ft_conv_b(char *str, t_print *elem, va_list ap);
+char				*ft_conv_p(char *str, t_print *elem, va_list ap);
+char				*ft_conv_percent(char *str, t_print *elem, va_list ap);
+
+char				*ft_parse_flags(char *cpy, t_print *elem);
+char				*ft_parse_width(char *cpy, t_print *elem);
+char				*ft_parse_precision(char *cpy, t_print *elem);
+char				*ft_parse_type(char *cpy, t_print *elem);
+int					ft_parse_conversion(char c, t_print *elem);
+
+char				*ft_set_alpha(t_print *elem, size_t len);
+intmax_t			ft_multicast(va_list ap, t_print *elem);
+void				ft_set_digit(char *ptr, char *str, t_print *elem);
+char				*ft_root(char *format, va_list ap, t_print *elem);
+int					ft_printf(const char *format, ...);
+
+void				ft_get_plus_d(char *ptr, char *ptr_ptr, t_print *elem);
+void				ft_get_hash_o(char *ptr, char *ptr_ptr, t_print *elem);
+void				ft_get_hash_x(char *ptr, char *ptr_ptr, t_print *elem);
+void				ft_get_ox(char *ptr, t_print *elem);
+
+char				*ft_wild_format(char *cpy, t_print *elem);
+char				*ft_cutter(char *format, t_print *elem);
+char				*ft_freezer(char *str);
+
+char				*ft_uchatoa_base(unsigned char nb, int base);
+char				*ft_ushotoa_base(unsigned short int nb, int base);
+char				*ft_utoa_base(unsigned int nb, int base);
+char				*ft_ulotoa_base(unsigned long long int nb, int base);
+char				*ft_slotoa_base(long long int nb, int base, t_print *elem);
+
+char				*ft_join_memory_free_all_bis(char *s1, char *s2,
+		size_t size, t_print *elem);
+char				*ft_join_memory_free_all(char *s1, char *s2, t_print *elem);
+char				*ft_join_memory_free_some(char *s1, char *s2,
+		t_print *elem);
+char				*ft_join_and_free_all(char *s1, char *s2);
+char				*ft_strndcpy(char *dst, char *src);
+
 #endif
