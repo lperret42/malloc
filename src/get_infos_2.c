@@ -63,3 +63,17 @@ size_t			get_page_size_from_type(void *page, t_page_type page_type)
 		page_size = *((unsigned long *)((char*)page + sizeof(void*)));
 	return (page_size);
 }
+
+size_t			get_nb_free_pages(void * page, t_page_type page_type)
+{
+	size_t		nb_free_pages;
+
+	nb_free_pages = 0;
+	while (page)
+	{
+		if (check_is_free_page(page, page_type) == 1)
+			nb_free_pages++;
+		page = read_void_star_in_memory(page);
+	}
+	return (nb_free_pages);
+}

@@ -21,12 +21,12 @@ size_t	get_nb_block_user(size_t size)
 	if (page_type == LARGE)
 		return (0);
 	else if (page_type == TINY)
-		nb_block_user = (sizeof(void *) * TINY_LEN -
-				(sizeof(void*) * (sizeof(void*) + 1))) /
+		nb_block_user = (sizeof(void *) * TINY_LEN -\
+				(sizeof(void*) * (sizeof(void*) + 1))) /\
 									(sizeof(void*) * TINY_BLOCK_SIZE + 1);
 	else
-		nb_block_user = (sizeof(void *) * SMALL_LEN -
-				(sizeof(void*) * (sizeof(void*) + 1))) /
+		nb_block_user = (sizeof(void *) * SMALL_LEN -\
+				(sizeof(void*) * (sizeof(void*) + 1))) /\
 									(sizeof(void*) * SMALL_BLOCK_SIZE + 1);
 	return (nb_block_user);
 }

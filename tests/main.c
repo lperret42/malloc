@@ -1,4 +1,4 @@
-#include "malloc.h"
+#include "../includes/malloc.h"
 
 int		main(void)
 {
@@ -6,12 +6,21 @@ int		main(void)
 	long int	n;
 	int			nb_times;
 	char		*str;
+	char		*str2;
+	int			r;
 
-	str = malloc(10);
+	str = malloc(4000000000);
+	n = 0;
+	while (n < 4000000000 - 5000)
+	{
+		str[n] = 42;
+		n += 4096;
+	}
+	str[2000000000] = 42;
 	str = malloc(500);
 	str = malloc(40000);
 	str = malloc(40000);
-	nb_times = 50000;
+	nb_times = 20;
 	n = 30;
 	str = NULL;
 	while (nb_times > 0)
@@ -27,7 +36,18 @@ int		main(void)
 		nb_times--;
 	}
 
-	//show_alloc_mem();
+	time_t		t;
+	srand((unsigned) time(&t));
+	nb_times = 5000;
+	while (nb_times-- > 0)
+	{
+		r = (int)rand() % 10000;
+		str2 = malloc(r + 1);
+		if (r % 7 == 0)
+			free(str2);
+	}
+
+	show_alloc_mem();
 
 	ft_printf("%s\n", str);
 

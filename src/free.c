@@ -99,6 +99,9 @@ int		search_and_free_ptr_in_not_larges(void *ptr, t_page_type page_type)
 		if (!(get_is_free_block(page + sizeof(void*), num_block_of_ptr) == 0))
 			return (0);
 		set_is_free_block(page + sizeof(void*), num_block_of_ptr, 1);
+		if (get_nb_free_pages(first_pages[page_type], page_type) >= 2 &&
+				check_is_free_page(page, page_type) == 1)
+			del_page(page, page_type);
 		return (1);
 	}
 	return (0);

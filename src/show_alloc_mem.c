@@ -84,7 +84,6 @@ size_t		show_alloc_mem_by_type(void *page, t_page_type page_type)
 		pages[n++] = page;
 		page = read_void_star_in_memory(page);
 	}
-	sort_pages(pages, nb_page);
 	total = 0;
 	n = 0;
 	while (n < nb_page)

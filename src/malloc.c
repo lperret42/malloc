@@ -14,8 +14,5 @@
 
 void	*malloc(size_t size)
 {
-	void			*ret;
-
-	ret = get_free_block(size);
-	return (ret);
+	return (get_free_block(size));
 }

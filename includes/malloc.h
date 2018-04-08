@@ -14,9 +14,7 @@
 # define MALLOC_H
 
 # include <unistd.h>
-//# include <stdio.h>
 # include <string.h>
-//# include <stdlib.h>
 # include <sys/mman.h>
 # include "../libft/includes/libft.h"
 
@@ -59,8 +57,10 @@ size_t			get_page_size_from_type(void *page, t_page_type page_type);
 size_t			get_nb_block_user(size_t size);
 void			*get_page_mem_begin(void *page, size_t size);
 void			*get_alloc_page(size_t size);
-void			del_page(void *page, t_page_type page_type);
 int				add_page(size_t size);
+int				check_is_free_page(void *page, t_page_type page_type);
+size_t			get_nb_free_pages(void *page, t_page_type page_type);
+void			del_page(void *page, t_page_type page_type);
 
 size_t			get_is_free_space_size(int nb_block);
 int				get_is_free_block(void *begin, int num_block);
