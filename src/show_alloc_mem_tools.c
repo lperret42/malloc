@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 15:12:02 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/06 15:13:37 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/09 11:43:17 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ size_t		get_nb_page(void *page)
 	return (nb_page);
 }
 
+void		reverse_pages(void **pages, size_t nb_page)
+{
+	size_t		n;
+	void		*tmp;
+
+	n = 0;
+	while (n < nb_page / 2 - 1)
+	{
+		tmp = pages[nb_page - 1 -n];
+		pages[nb_page - 1 - n] = pages[n];
+		pages[n] = tmp;
+		n++;
+	}
+}
+
 void		sort_pages(void **pages, size_t nb_page)
 {
 	size_t		n;
@@ -44,6 +59,7 @@ void		sort_pages(void **pages, size_t nb_page)
 
 	if (nb_page < 2)
 		return ;
+	reverse_pages(pages, nb_page);
 	n = 0;
 	while (n < nb_page - 1)
 	{

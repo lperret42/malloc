@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 15:48:42 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/06 15:48:44 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/09 11:47:26 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ char		*ft_conv_x(char *str, t_print *elem, va_list ap)
 	{
 		while (ptr[i])
 		{
-			ptr[i] = ft_toupper(ptr[i]);
+			if (ptr[i] != 'x')
+				ptr[i] = ft_toupper(ptr[i]);
 			i++;
 		}
 	}

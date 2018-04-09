@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 15:10:09 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/06 15:11:53 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/09 11:28:53 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ size_t		show_alloc_mem_by_type(void *page, t_page_type page_type)
 		pages[n++] = page;
 		page = read_void_star_in_memory(page);
 	}
+	sort_pages(pages, nb_page);
 	total = 0;
 	n = 0;
 	while (n < nb_page)

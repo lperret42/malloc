@@ -25,7 +25,7 @@ SYMBOLIC_LINK = libft_malloc.so
 all: $(NAME)
 
 $(NAME): obj $(LIBFT_A) $(OBJ)
-	@$(CC) $(FLAGS) $(DLFLAGS) -shared -o $@ $(LIBFT_LINK) $(LIBFT_A) $(OBJ)
+	@$(CC) $(FLAGS) -shared -fPIC -o $@ $(LIBFT_LINK) $(LIBFT_A) $(OBJ)
 	@echo "\033[32mLinking & indexing" [ $(NAME) ] "\033[0m"
 	@ln -sf $(NAME) $(SYMBOLIC_LINK)
 	@echo "\033[32mCreation of a symbolic link" [ $(SYMBOLIC_LINK) ]\

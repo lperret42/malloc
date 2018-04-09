@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:08:09 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/06 13:31:05 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/09 10:56:23 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ size_t			get_page_size_from_type(void *page, t_page_type page_type)
 	return (page_size);
 }
 
-size_t			get_nb_free_pages(void * page, t_page_type page_type)
+size_t			get_nb_free_pages(void *page, t_page_type page_type)
 {
 	size_t		nb_free_pages;
 

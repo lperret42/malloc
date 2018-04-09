@@ -6,7 +6,7 @@
 /*   By: lperret <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:38:55 by lperret           #+#    #+#             */
-/*   Updated: 2018/04/06 15:11:32 by lperret          ###   ########.fr       */
+/*   Updated: 2018/04/09 11:00:07 by lperret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,22 @@ void			*get_first_page(size_t size);
 size_t			get_malloc_mem_size(size_t size);
 size_t			get_user_mem_size(size_t size);
 size_t			get_total_mem_size(size_t size);
-
 size_t			get_page_block_size(size_t size);
 t_page_type		get_page_type(size_t size);
 size_t			get_page_size_from_type(void *page, t_page_type page_type);
 size_t			get_nb_block_user(size_t size);
 void			*get_page_mem_begin(void *page, size_t size);
+
 void			*get_alloc_page(size_t size);
 int				add_page(size_t size);
-int				check_is_free_page(void *page, t_page_type page_type);
-size_t			get_nb_free_pages(void *page, t_page_type page_type);
 void			del_page(void *page, t_page_type page_type);
 
 size_t			get_is_free_space_size(int nb_block);
 int				get_is_free_block(void *begin, int num_block);
 void			set_is_free_block(void *begin, int num_block, int is_free);
 int				search_num_free_block(void *begin, size_t nb_block);
+int				check_is_free_page(void *page, t_page_type page_type);
+size_t			get_nb_free_pages(void *page, t_page_type page_type);
 void			*get_free_block(size_t size);
 
 long			get_num_block_of_ptr_in_page(void *page, t_page_type page_type,

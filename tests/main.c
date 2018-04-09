@@ -9,14 +9,6 @@ int		main(void)
 	char		*str2;
 	int			r;
 
-	str = malloc(4000000000);
-	n = 0;
-	while (n < 4000000000 - 5000)
-	{
-		str[n] = 42;
-		n += 4096;
-	}
-	str[2000000000] = 42;
 	str = malloc(500);
 	str = malloc(40000);
 	str = malloc(40000);
@@ -48,7 +40,6 @@ int		main(void)
 	}
 
 	show_alloc_mem();
-
 	ft_printf("%s\n", str);
 
 	ft_printf("NB_BLOCK_TINY_TOTAL: %d\n", NB_BLOCK_TINY_TOTAL);
